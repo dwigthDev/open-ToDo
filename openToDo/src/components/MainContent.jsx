@@ -1,8 +1,12 @@
 import { useEffect,useState} from 'react'
 import CardInfo from './CardInfo'
 import Pomodoro from './Pomodoro'
+import OpenChat from './OpenChat'
+import ModalAddTask from './ModalAddTaks'
 const MainContent = ({userData}) => {
   const [isPomodoro,setIsPomodoro] = useState(true);
+  const [open, setOpen] = useState(true);
+  const [taskList,setTaskList] = useState([])  
 
   return (
 <section className="bg-gray-950 min-h-[500px] flex p-4 border border-gray-500 gap-4 ">
@@ -36,9 +40,16 @@ const MainContent = ({userData}) => {
         <option value="low">Low</option>
       </select>
       <input type="date" name="" id="" className='bg-gray-900 px-3 rounded text-white' />
-      <button className="border py-1 px-2 rounded cursor-pointer text-sm flex items-center hover:bg-gray-100 hover:text-gray-900">Create New Task</button>
+      <button onClick={() => setOpen(true)} className="border  font-semibold py-1 px-2 rounded cursor-pointer text-sm flex items-center hover:bg-gray-100 hover:text-gray-900">Create New Task</button>
     </div> 
+    {/*Mapeo de las tareas*/}
+    {
+      taskList.length === 0 ? taskList.map((task)=>{
+        <div>{task.id}</div>
+      }) : "no hay tareas aun"
+    }
   </div>
+    <ModalAddTask open={open} setOpen={setOpen} taskList={taskList} setTaskList={setTaskList}/>
 </section>
 
   )
